@@ -504,10 +504,49 @@
                 margin: 0 0.5rem;
             }
             
-            /* Mobile grid - show 2 items per row */
+            /* Mobile grid - show 2 items per row with compact design */
             .dish-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+                gap: 0.8rem;
+            }
+            
+            /* Compact mobile cards */
+            .dish-card {
+                padding: 1rem;
+                border-radius: 15px;
+            }
+            
+            .dish-image {
+                width: 120px;
+                height: 120px;
+                margin: 0 auto 0.8rem;
+                border-width: 2px;
+            }
+            
+            .dish-name {
+                font-size: 1.3rem;
+                margin-bottom: 0.3rem;
+                line-height: 1.2;
+            }
+            
+            .dish-name-en {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .dish-description {
+                font-size: 0.85rem;
+                line-height: 1.4;
+                margin-bottom: 0.8rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            
+            .dish-price {
+                font-size: 1.4rem;
+                margin-top: 0.5rem;
             }
             
             .social-icons {
@@ -621,6 +660,42 @@
                     descriptionEn: 'Smooth ground chickpeas with tahini and olive oil',
                     price: '20 ريال',
                     image: 'https://images.unsplash.com/photo-1571197119498-b1c4d3c71756?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'shakshuka',
+                    name: 'شكشوكة',
+                    nameEn: 'Shakshuka',
+                    description: 'بيض مطبوخ في صلصة الطماطم والفلفل مع التوابل العربية',
+                    descriptionEn: 'Eggs cooked in tomato and pepper sauce with Arabic spices',
+                    price: '30 ريال',
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'fattet_hummus',
+                    name: 'فتة الحمص',
+                    nameEn: 'Fattet Hummus',
+                    description: 'طبقات من الخبز والحمص واللبن مع الصنوبر',
+                    descriptionEn: 'Layers of bread, chickpeas and yogurt with pine nuts',
+                    price: '35 ريال',
+                    image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'labneh',
+                    name: 'لبنة بزيت الزيتون',
+                    nameEn: 'Labneh with Olive Oil',
+                    description: 'لبنة طازجة مع زيت الزيتون والزعتر والطماطم',
+                    descriptionEn: 'Fresh labneh with olive oil, zaatar and tomatoes',
+                    price: '22 ريال',
+                    image: 'https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'manakish',
+                    name: 'مناقيش بالزعتر',
+                    nameEn: 'Zaatar Manakish',
+                    description: 'خبز مسطح مع الزعتر وزيت الزيتون من الفرن',
+                    descriptionEn: 'Flatbread with zaatar and olive oil from the oven',
+                    price: '18 ريال',
+                    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=400&fit=crop'
                 }
             ],
             mainMeals: [
@@ -677,6 +752,33 @@
                     descriptionEn: 'Pastries filled with spinach, onions and spices',
                     price: '15 ريال',
                     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'biryani',
+                    name: 'برياني الدجاج',
+                    nameEn: 'Chicken Biryani',
+                    description: 'أرز برياني مع قطع الدجاج المتبلة والزعفران',
+                    descriptionEn: 'Biryani rice with spiced chicken pieces and saffron',
+                    price: '75 ريال',
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'grilled_fish',
+                    name: 'سمك مشوي',
+                    nameEn: 'Grilled Fish',
+                    description: 'سمك طازج مشوي مع الأرز والخضار المشوية',
+                    descriptionEn: 'Fresh grilled fish with rice and grilled vegetables',
+                    price: '85 ريال',
+                    image: 'https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'mixed_grill',
+                    name: 'مشاوي مشكلة',
+                    nameEn: 'Mixed Grill',
+                    description: 'مجموعة من اللحوم المشوية مع الأرز والسلطة',
+                    descriptionEn: 'Assorted grilled meats with rice and salad',
+                    price: '120 ريال',
+                    image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=400&fit=crop'
                 }
             ]
         };
