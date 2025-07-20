@@ -485,10 +485,6 @@
                 font-size: 4rem;
             }
             
-            .slogan {
-                font-size: 1.2rem;
-            }
-            
             .category-selector {
                 flex-wrap: wrap;
                 gap: 1rem;
@@ -506,8 +502,10 @@
                 margin-bottom: 1rem;
             }
             
+            /* Keep dish grid layout same as desktop */
             .dish-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
             }
             
             .social-icons {
@@ -569,7 +567,7 @@
                 </a>
             </div>
             
-            <div class="slogan" id="slogan">طعم الأصالة في كل لقمة</div>
+
         </section>
 
         <!-- Menu Section -->
@@ -707,7 +705,6 @@
             const mainTitle = document.getElementById('mainTitle');
             const subtitle = document.getElementById('subtitle');
             const socialIcons = document.getElementById('socialIcons');
-            const slogan = document.getElementById('slogan');
 
             // Animate title with bounce effect
             mainTitle.classList.add('animate');
@@ -719,10 +716,6 @@
             setTimeout(() => {
                 socialIcons.classList.add('animate');
             }, 1500);
-            
-            setTimeout(() => {
-                slogan.classList.add('animate');
-            }, 2000);
         }
 
         // Category switching function
