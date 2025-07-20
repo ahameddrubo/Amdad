@@ -25,17 +25,23 @@ class KhamerMenu {
   }
 
   async init() {
-    // Initialize core systems
-    this.setupDishes()
-    this.setupAudio()
-    this.setupWebGL()
-    this.setupScrollTriggers()
-    this.setupInteractions()
-    this.setupTypingEffect()
-    this.setupParticleSystem()
-    
-    // Start the experience
-    this.startLoadingSequence()
+    try {
+      // Initialize core systems
+      this.setupDishes()
+      this.setupAudio()
+      this.setupWebGL()
+      this.setupScrollTriggers()
+      this.setupInteractions()
+      this.setupTypingEffect()
+      this.setupParticleSystem()
+      
+      // Start the experience
+      this.startLoadingSequence()
+    } catch (error) {
+      console.warn('Some features may not work properly:', error)
+      // Ensure loading screen is removed even if there are errors
+      this.startLoadingSequence()
+    }
   }
 
   // ==================================================
@@ -135,25 +141,28 @@ class KhamerMenu {
   setupAudio() {
     this.ambientAudio = document.getElementById('ambientAudio')
     
-    // Create a placeholder audio source since we don't have the actual file
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-    const oscillator = audioContext.createOscillator()
-    const gainNode = audioContext.createGain()
-    
-    oscillator.connect(gainNode)
-    gainNode.connect(audioContext.destination)
-    
-    // Very low volume ambient sound
-    gainNode.gain.value = 0.1
-    oscillator.frequency.value = 110 // Low frequency for ambient feel
-    oscillator.type = 'sine'
-    
-    // Start after user interaction
-    document.addEventListener('click', () => {
-      if (audioContext.state === 'suspended') {
-        audioContext.resume()
-      }
-    }, { once: true })
+    // Only setup audio if element exists
+    if (this.ambientAudio) {
+      // Create a placeholder audio source since we don't have the actual file
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+      const oscillator = audioContext.createOscillator()
+      const gainNode = audioContext.createGain()
+      
+      oscillator.connect(gainNode)
+      gainNode.connect(audioContext.destination)
+      
+      // Very low volume ambient sound
+      gainNode.gain.value = 0.1
+      oscillator.frequency.value = 110 // Low frequency for ambient feel
+      oscillator.type = 'sine'
+      
+      // Start after user interaction
+      document.addEventListener('click', () => {
+        if (audioContext.state === 'suspended') {
+          audioContext.resume()
+        }
+      }, { once: true })
+    }
   }
 
   // ==================================================
@@ -677,44 +686,77 @@ class KhamerMenu {
     const loadingScreen = document.getElementById('loadingScreen')
     const loadingText = loadingScreen.querySelector('.loading-text')
     
-    // Animate loading text
-    gsap.to(loadingText, {
-      scale: 1.2,
-      duration: 1,
-      yoyo: true,
-      repeat: 2,
-      ease: "power2.inOut"
-    })
-    
-    // Fade out loading screen
-    setTimeout(() => {
-      loadingScreen.classList.add('fade-out')
-      
-      // Start main animations
-      setTimeout(() => {
+    // Add fallback to remove loading screen if something goes wrong
+    const fallbackTimeout = setTimeout(() => {
+      if (loadingScreen && !loadingScreen.classList.contains('fade-out')) {
+        console.warn('Loading took too long, forcing completion')
+        loadingScreen.style.display = 'none'
         this.startMainAnimations()
-      }, 500)
-    }, 3000)
+      }
+    }, 10000) // 10 second fallback
+    
+    try {
+      // Animate loading text
+      gsap.to(loadingText, {
+        scale: 1.2,
+        duration: 1,
+        yoyo: true,
+        repeat: 2,
+        ease: "power2.inOut"
+      })
+      
+      // Fade out loading screen
+      setTimeout(() => {
+        if (loadingScreen) {
+          loadingScreen.classList.add('fade-out')
+          clearTimeout(fallbackTimeout)
+          
+          // Start main animations
+          setTimeout(() => {
+            this.startMainAnimations()
+          }, 500)
+        }
+      }, 3000)
+    } catch (error) {
+      console.warn('Animation error, removing loading screen:', error)
+      clearTimeout(fallbackTimeout)
+      if (loadingScreen) {
+        loadingScreen.style.display = 'none'
+      }
+      this.startMainAnimations()
+    }
   }
 
   startMainAnimations() {
-    // Animate hero elements in sequence
-    const tl = gsap.timeline()
-    
-    tl.fromTo('.main-title', 
-      { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.7)" }
-    )
-    .fromTo('.social-icons .social-icon',
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" },
-      "-=0.5"
-    )
-    .fromTo('.auto-typed-slogans',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
-      "-=0.3"
-    )
+    try {
+      // Animate hero elements in sequence
+      const tl = gsap.timeline()
+      
+      tl.fromTo('.main-title', 
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.5, ease: "back.out(1.7)" }
+      )
+      .fromTo('.social-icons .social-icon',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power2.out" },
+        "-=0.5"
+      )
+      .fromTo('.auto-typed-slogans',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+        "-=0.3"
+      )
+    } catch (error) {
+      console.warn('Main animation error:', error)
+      // Fallback: Just show the elements without animation
+      const elements = document.querySelectorAll('.main-title, .social-icons .social-icon, .auto-typed-slogans')
+      elements.forEach(el => {
+        if (el) {
+          el.style.opacity = '1'
+          el.style.transform = 'none'
+        }
+      })
+    }
   }
 
   // ==================================================
