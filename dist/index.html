@@ -110,7 +110,7 @@
         
         .main-title {
             font-family: 'Scheherazade New', serif;
-            font-size: 8rem;
+            font-size: 6rem;
             font-weight: 700;
             color: #d4af37;
             text-shadow: 
@@ -123,6 +123,7 @@
             transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             position: relative;
             z-index: 2;
+            white-space: nowrap;
         }
         
         .main-title.animate {
@@ -239,38 +240,26 @@
             transform: scale(1.1);
         }
         
-        .slogans-container {
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-        }
-        
         .slogan {
             font-family: 'Aref Ruqaa', serif;
             font-size: 1.6rem;
             font-weight: 400;
             color: #d4af37;
             text-align: center;
-            position: absolute;
-            opacity: 0;
-            transform: translateY(30px) scale(0.9);
-            transition: all 0.8s ease;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             line-height: 1.4;
-        }
-        
-        .slogan.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        
-        .slogan.exit {
+            margin: 2rem 0;
             opacity: 0;
-            transform: translateY(-30px) scale(0.9);
+            transform: translateY(30px);
+            transition: all 0.8s ease-out 1.5s;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .slogan.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* Menu Section */
@@ -287,6 +276,73 @@
             color: #d4af37;
             font-family: 'Scheherazade New', serif;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Category Selector */
+        .category-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 4rem;
+            position: relative;
+            gap: 3rem;
+        }
+        
+        .category-btn {
+            background: rgba(26, 26, 46, 0.8);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            color: #d4af37;
+            font-family: 'Scheherazade New', serif;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .category-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        
+        .category-btn.active {
+            background: #d4af37;
+            color: #1a1a2e;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Jerry Character */
+        .jerry-chef {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+        }
+        
+        .jerry-chef.pointing-left {
+            transform: translate(-150%, -50%) rotate(-15deg);
+        }
+        
+        .jerry-chef.pointing-right {
+            transform: translate(50%, -50%) rotate(15deg) scaleX(-1);
+        }
+        
+        .jerry-chef.jumping {
+            animation: jerryJump 0.6s ease-out;
+        }
+        
+        @keyframes jerryJump {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+            50% { transform: translate(-50%, -150%) scale(1.2) rotate(360deg); }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
         }
         
         .dish-grid {
@@ -380,11 +436,21 @@
         /* Responsive */
         @media (max-width: 768px) {
             .main-title {
-                font-size: 5rem;
+                font-size: 4rem;
             }
             
             .slogan {
                 font-size: 1.2rem;
+            }
+            
+            .category-selector {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .jerry-chef {
+                position: relative;
+                transform: none !important;
             }
             
             .dish-grid {
@@ -450,18 +516,29 @@
                 </a>
             </div>
             
-            <div class="slogans-container" id="slogansContainer">
-                <div class="slogan active" id="slogan1">طعم الأصالة في كل لقمة</div>
-                <div class="slogan" id="slogan2">من قلب الجزيرة العربية إلى مائدتكم</div>
-                <div class="slogan" id="slogan3">تراث يتجدد مع كل وجبة</div>
-                <div class="slogan" id="slogan4">نكهات الأجداد بلمسة عصرية</div>
-                <div class="slogan" id="slogan5">رحلة طعام عبر تاريخ المملكة</div>
-            </div>
+            <div class="slogan" id="slogan">طعم الأصالة في كل لقمة</div>
         </section>
 
         <!-- Menu Section -->
         <div class="menu-container">
             <h2 class="menu-title fade-in">قائمة الطعام التراثية</h2>
+            
+            <!-- Category Selector -->
+            <div class="category-selector fade-in">
+                <button class="category-btn active" id="breakfastBtn" onclick="switchCategory('breakfast')">
+                    إفطار الصباح
+                </button>
+                
+                <!-- Jerry Chef Character -->
+                <div class="jerry-chef pointing-left" id="jerryChef">
+                    🐭👨‍🍳
+                </div>
+                
+                <button class="category-btn" id="mainMealsBtn" onclick="switchCategory('mainMeals')">
+                    وجبات رئيسية
+                </button>
+            </div>
+            
             <div class="dish-grid" id="dishGrid">
                 <!-- Dishes will be dynamically added here -->
             </div>
@@ -471,66 +548,69 @@
     </div>
 
     <script>
-        // Dish data
-        const dishes = [
-            {
-                id: 'kabsa',
-                name: 'كبسة الملكية',
-                nameEn: 'Royal Kabsa',
-                description: 'أرز بسمتي مع لحم الضأن المطبوخ بالتوابل العربية الأصيلة والزعفران الذهبي',
-                descriptionEn: 'Basmati rice with lamb cooked in authentic Arabic spices and golden saffron',
-                price: '85 ريال',
-                image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop'
-            },
-            {
-                id: 'mandi',
-                name: 'مندي الحضرمي',
-                nameEn: 'Hadrami Mandi',
-                description: 'لحم الضأن المدخن مع الأرز المعطر بالهيل والقرفة',
-                descriptionEn: 'Smoked lamb with rice perfumed with cardamom and cinnamon',
-                price: '78 ريال',
-                image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=400&fit=crop'
-            },
-            {
-                id: 'machboos',
-                name: 'مجبوس السمك',
-                nameEn: 'Fish Machboos',
-                description: 'سمك الهامور الطازج مع الأرز المتبل بالكركم والبهارات الخليجية',
-                descriptionEn: 'Fresh grouper fish with turmeric-spiced rice and Gulf spices',
-                price: '92 ريال',
-                image: 'https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=400&fit=crop'
-            },
-            {
-                id: 'mansaf',
-                name: 'المنسف الأردني',
-                nameEn: 'Jordanian Mansaf',
-                description: 'لحم الضأن بصلصة اللبن مع الأرز والمكسرات',
-                descriptionEn: 'Lamb in yogurt sauce with rice and nuts',
-                price: '88 ريال',
-                image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=400&fit=crop'
-            },
-            {
-                id: 'ouzi',
-                name: 'الأوزي العراقي',
-                nameEn: 'Iraqi Ouzi',
-                description: 'لحم الضأن المحشو بالأرز والمكسرات والزبيب',
-                descriptionEn: 'Stuffed lamb with rice, nuts and raisins',
-                price: '95 ريال',
-                image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=400&fit=crop'
-            },
-            {
-                id: 'shawarma',
-                name: 'شاورما اللحم',
-                nameEn: 'Meat Shawarma',
-                description: 'لحم مشوي مع الخضار والصلصات في خبز عربي طازج',
-                descriptionEn: 'Grilled meat with vegetables and sauces in fresh Arabic bread',
-                price: '45 ريال',
-                image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&h=400&fit=crop'
-            }
-        ];
+        // Dish data by category
+        const dishes = {
+            breakfast: [
+                {
+                    id: 'foul',
+                    name: 'فول مدمس',
+                    nameEn: 'Foul Mudammas',
+                    description: 'فول مسلوق مع زيت الزيتون والطحينة والخضار الطازجة',
+                    descriptionEn: 'Boiled fava beans with olive oil, tahini and fresh vegetables',
+                    price: '25 ريال',
+                    image: 'https://images.unsplash.com/photo-1571197119498-b1c4d3c71756?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'hummus',
+                    name: 'حمص بالطحينة',
+                    nameEn: 'Hummus with Tahini',
+                    description: 'حمص مطحون ناعم مع الطحينة وزيت الزيتون',
+                    descriptionEn: 'Smooth ground chickpeas with tahini and olive oil',
+                    price: '20 ريال',
+                    image: 'https://images.unsplash.com/photo-1571197119498-b1c4d3c71756?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'shakshuka',
+                    name: 'شكشوكة',
+                    nameEn: 'Shakshuka',
+                    description: 'بيض مطبوخ في صلصة الطماطم بالتوابل العربية',
+                    descriptionEn: 'Eggs cooked in spiced tomato sauce with Arabic spices',
+                    price: '35 ريال',
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop'
+                }
+            ],
+            mainMeals: [
+                {
+                    id: 'kabsa',
+                    name: 'كبسة الملكية',
+                    nameEn: 'Royal Kabsa',
+                    description: 'أرز بسمتي مع لحم الضأن المطبوخ بالتوابل العربية الأصيلة والزعفران الذهبي',
+                    descriptionEn: 'Basmati rice with lamb cooked in authentic Arabic spices and golden saffron',
+                    price: '85 ريال',
+                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'mandi',
+                    name: 'مندي الحضرمي',
+                    nameEn: 'Hadrami Mandi',
+                    description: 'لحم الضأن المدخن مع الأرز المعطر بالهيل والقرفة',
+                    descriptionEn: 'Smoked lamb with rice perfumed with cardamom and cinnamon',
+                    price: '78 ريال',
+                    image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'machboos',
+                    name: 'مجبوس السمك',
+                    nameEn: 'Fish Machboos',
+                    description: 'سمك الهامور الطازج مع الأرز المتبل بالكركم والبهارات الخليجية',
+                    descriptionEn: 'Fresh grouper fish with turmeric-spiced rice and Gulf spices',
+                    price: '92 ريال',
+                    image: 'https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=400&fit=crop'
+                }
+            ]
+        };
 
-        let currentSloganIndex = 0;
-        const slogans = document.querySelectorAll('.slogan');
+        let currentCategory = 'breakfast';
 
         // Initialize app
         function initApp() {
@@ -545,22 +625,18 @@
                 }, 500);
             }, 2000);
 
-            // Generate dish cards
-            generateDishCards();
+            // Generate initial dish cards
+            generateDishCards('breakfast');
             
             // Setup scroll animations
             setupScrollAnimations();
-            
-            // Start slogan rotation
-            setTimeout(() => {
-                startSloganRotation();
-            }, 3000);
         }
 
         function startHeroAnimations() {
             const mainTitle = document.getElementById('mainTitle');
             const subtitle = document.getElementById('subtitle');
             const socialIcons = document.getElementById('socialIcons');
+            const slogan = document.getElementById('slogan');
 
             // Animate title with bounce effect
             mainTitle.classList.add('animate');
@@ -572,31 +648,44 @@
             setTimeout(() => {
                 socialIcons.classList.add('animate');
             }, 1500);
-        }
-
-        function startSloganRotation() {
-            setInterval(() => {
-                const currentSlogan = slogans[currentSloganIndex];
-                const nextIndex = (currentSloganIndex + 1) % slogans.length;
-                const nextSlogan = slogans[nextIndex];
-                
-                // Exit current slogan
-                currentSlogan.classList.remove('active');
-                currentSlogan.classList.add('exit');
-                
-                setTimeout(() => {
-                    currentSlogan.classList.remove('exit');
-                    nextSlogan.classList.add('active');
-                    currentSloganIndex = nextIndex;
-                }, 400);
-                
-            }, 4000); // Change every 4 seconds
-        }
-
-        function generateDishCards() {
-            const dishGrid = document.getElementById('dishGrid');
             
-            dishes.forEach((dish, index) => {
+            setTimeout(() => {
+                slogan.classList.add('animate');
+            }, 2000);
+        }
+
+        // Category switching function
+        function switchCategory(category) {
+            if (currentCategory === category) return;
+            
+            const breakfastBtn = document.getElementById('breakfastBtn');
+            const mainMealsBtn = document.getElementById('mainMealsBtn');
+            const jerryChef = document.getElementById('jerryChef');
+            
+            // Update button states
+            breakfastBtn.classList.toggle('active', category === 'breakfast');
+            mainMealsBtn.classList.toggle('active', category === 'mainMeals');
+            
+            // Animate Jerry
+            jerryChef.classList.add('jumping');
+            
+            setTimeout(() => {
+                jerryChef.classList.remove('jumping');
+                jerryChef.className = `jerry-chef ${category === 'breakfast' ? 'pointing-left' : 'pointing-right'}`;
+                
+                // Generate new dishes
+                generateDishCards(category);
+                currentCategory = category;
+            }, 300);
+        }
+
+        function generateDishCards(category) {
+            const dishGrid = document.getElementById('dishGrid');
+            dishGrid.innerHTML = ''; // Clear existing cards
+            
+            const categoryDishes = dishes[category];
+            
+            categoryDishes.forEach((dish, index) => {
                 const dishCard = document.createElement('div');
                 dishCard.className = 'dish-card fade-in';
                 dishCard.innerHTML = `
@@ -606,6 +695,11 @@
                     <p class="dish-description">${dish.description}</p>
                     <div class="dish-price">${dish.price}</div>
                 `;
+                
+                // Add animation delay
+                setTimeout(() => {
+                    dishCard.classList.add('visible');
+                }, index * 100);
                 
                 dishGrid.appendChild(dishCard);
             });
