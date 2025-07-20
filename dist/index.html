@@ -285,7 +285,7 @@
             align-items: center;
             margin-bottom: 4rem;
             position: relative;
-            gap: 2rem;
+            gap: 8rem;
             flex-wrap: wrap;
         }
         
@@ -358,15 +358,11 @@
         }
         
         .master-chef.pointing-breakfast {
-            transform: translateX(-20px) rotate(-15deg);
+            transform: translateX(-50px) rotate(-25deg);
         }
         
-        .master-chef.pointing-lunch {
-            transform: translateX(0) rotate(0deg) scale(1.1);
-        }
-        
-        .master-chef.pointing-dinner {
-            transform: translateX(20px) rotate(15deg);
+        .master-chef.pointing-mainMeals {
+            transform: translateX(50px) rotate(25deg) scaleX(-1);
         }
         
         .master-chef.jumping {
@@ -586,21 +582,13 @@
                     إفطار الصباح
                 </button>
                 
-                <button class="category-btn" id="lunchBtn" onclick="switchCategory('lunch')">
-                    وجبة الغداء
-                </button>
-                
                 <!-- Master Chef Character -->
                 <div class="master-chef pointing-breakfast" id="masterChef">
                     <div class="chef-character">👨‍🍳</div>
                 </div>
                 
-                <button class="category-btn" id="dinnerBtn" onclick="switchCategory('dinner')">
-                    وجبة العشاء
-                </button>
-                
-                <button class="category-btn" id="snacksBtn" onclick="switchCategory('snacks')">
-                    وجبات خفيفة
+                <button class="category-btn" id="mainMealsBtn" onclick="switchCategory('mainMeals')">
+                    وجبات الغداء والعشاء
                 </button>
             </div>
             
@@ -635,7 +623,7 @@
                     image: 'https://images.unsplash.com/photo-1571197119498-b1c4d3c71756?w=400&h=400&fit=crop'
                 }
             ],
-            lunch: [
+            mainMeals: [
                 {
                     id: 'kabsa',
                     name: 'كبسة الملكية',
@@ -653,9 +641,7 @@
                     descriptionEn: 'Smoked lamb with rice perfumed with cardamom and cinnamon',
                     price: '78 ريال',
                     image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=400&fit=crop'
-                }
-            ],
-            dinner: [
+                },
                 {
                     id: 'machboos',
                     name: 'مجبوس السمك',
@@ -673,9 +659,7 @@
                     descriptionEn: 'Stuffed lamb with rice, nuts and raisins',
                     price: '95 ريال',
                     image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=400&fit=crop'
-                }
-            ],
-            snacks: [
+                },
                 {
                     id: 'shawarma',
                     name: 'شاورما اللحم',
@@ -746,26 +730,19 @@
             if (currentCategory === category) return;
             
             const breakfastBtn = document.getElementById('breakfastBtn');
-            const lunchBtn = document.getElementById('lunchBtn');
-            const dinnerBtn = document.getElementById('dinnerBtn');
-            const snacksBtn = document.getElementById('snacksBtn');
+            const mainMealsBtn = document.getElementById('mainMealsBtn');
             const masterChef = document.getElementById('masterChef');
             
             // Update button states
             breakfastBtn.classList.toggle('active', category === 'breakfast');
-            lunchBtn.classList.toggle('active', category === 'lunch');
-            dinnerBtn.classList.toggle('active', category === 'dinner');
-            snacksBtn.classList.toggle('active', category === 'snacks');
+            mainMealsBtn.classList.toggle('active', category === 'mainMeals');
             
             // Animate Master Chef
             masterChef.classList.add('jumping');
             
             setTimeout(() => {
                 masterChef.classList.remove('jumping');
-                let chefClass = 'pointing-breakfast';
-                if (category === 'lunch') chefClass = 'pointing-lunch';
-                else if (category === 'dinner') chefClass = 'pointing-dinner';
-                else if (category === 'snacks') chefClass = 'pointing-dinner';
+                let chefClass = category === 'breakfast' ? 'pointing-breakfast' : 'pointing-mainMeals';
                 
                 masterChef.className = `master-chef ${chefClass}`;
                 
