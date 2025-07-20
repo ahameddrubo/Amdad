@@ -486,26 +486,28 @@
             }
             
             .category-selector {
-                flex-wrap: wrap;
-                gap: 1rem;
+                flex-wrap: nowrap;
+                gap: 0.5rem;
+                justify-content: center;
+                align-items: center;
             }
             
             .category-btn {
-                font-size: 1rem;
-                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+                padding: 0.5rem 0.8rem;
+                white-space: nowrap;
             }
             
             .master-chef {
-                width: 80px;
-                height: 80px;
-                order: -1;
-                margin-bottom: 1rem;
+                width: 60px;
+                height: 60px;
+                margin: 0 0.5rem;
             }
             
-            /* Keep dish grid layout same as desktop */
+            /* Mobile grid - show 2 items per row */
             .dish-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
             
             .social-icons {
