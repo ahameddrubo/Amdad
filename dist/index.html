@@ -285,21 +285,23 @@
             align-items: center;
             margin-bottom: 4rem;
             position: relative;
-            gap: 3rem;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
         
         .category-btn {
             background: rgba(26, 26, 46, 0.8);
             border: 2px solid #d4af37;
             border-radius: 15px;
-            padding: 1rem 2rem;
+            padding: 0.8rem 1.5rem;
             color: #d4af37;
             font-family: 'Scheherazade New', serif;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             position: relative;
+            white-space: nowrap;
         }
         
         .category-btn:hover {
@@ -315,34 +317,82 @@
             box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
         }
         
-        /* Jerry Character */
-        .jerry-chef {
-            width: 80px;
-            height: 80px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        /* Master Chef Character */
+        .master-chef {
+            width: 120px;
+            height: 120px;
+            position: relative;
             transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 10;
+            cursor: pointer;
         }
         
-        .jerry-chef.pointing-left {
-            transform: translate(-150%, -50%) rotate(-15deg);
+        .chef-character {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
-        .jerry-chef.pointing-right {
-            transform: translate(50%, -50%) rotate(15deg) scaleX(-1);
+        .chef-character::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: chefShine 3s infinite;
         }
         
-        .jerry-chef.jumping {
-            animation: jerryJump 0.6s ease-out;
+        @keyframes chefShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        @keyframes jerryJump {
-            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-            50% { transform: translate(-50%, -150%) scale(1.2) rotate(360deg); }
-            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+        .master-chef.pointing-breakfast {
+            transform: translateX(-20px) rotate(-15deg);
+        }
+        
+        .master-chef.pointing-lunch {
+            transform: translateX(0) rotate(0deg) scale(1.1);
+        }
+        
+        .master-chef.pointing-dinner {
+            transform: translateX(20px) rotate(15deg);
+        }
+        
+        .master-chef.jumping {
+            animation: masterChefJump 0.8s ease-out;
+        }
+        
+        @keyframes masterChefJump {
+            0% { 
+                transform: translateY(0) scale(1) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-30px) scale(1.2) rotate(180deg); 
+                box-shadow: 0 20px 40px rgba(212, 175, 55, 0.6);
+            }
+            50% { 
+                transform: translateY(-40px) scale(1.3) rotate(360deg); 
+                box-shadow: 0 25px 50px rgba(212, 175, 55, 0.8);
+            }
+            75% { 
+                transform: translateY(-20px) scale(1.1) rotate(540deg); 
+                box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+            }
+            100% { 
+                transform: translateY(0) scale(1) rotate(720deg); 
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            }
         }
         
         .dish-grid {
@@ -444,13 +494,20 @@
             }
             
             .category-selector {
-                flex-direction: column;
-                gap: 2rem;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
             
-            .jerry-chef {
-                position: relative;
-                transform: none !important;
+            .category-btn {
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
+            }
+            
+            .master-chef {
+                width: 80px;
+                height: 80px;
+                order: -1;
+                margin-bottom: 1rem;
             }
             
             .dish-grid {
@@ -529,13 +586,21 @@
                     إفطار الصباح
                 </button>
                 
-                <!-- Jerry Chef Character -->
-                <div class="jerry-chef pointing-left" id="jerryChef">
-                    🐭👨‍🍳
+                <button class="category-btn" id="lunchBtn" onclick="switchCategory('lunch')">
+                    وجبة الغداء
+                </button>
+                
+                <!-- Master Chef Character -->
+                <div class="master-chef pointing-breakfast" id="masterChef">
+                    <div class="chef-character">👨‍🍳</div>
                 </div>
                 
-                <button class="category-btn" id="mainMealsBtn" onclick="switchCategory('mainMeals')">
-                    وجبات رئيسية
+                <button class="category-btn" id="dinnerBtn" onclick="switchCategory('dinner')">
+                    وجبة العشاء
+                </button>
+                
+                <button class="category-btn" id="snacksBtn" onclick="switchCategory('snacks')">
+                    وجبات خفيفة
                 </button>
             </div>
             
@@ -568,18 +633,9 @@
                     descriptionEn: 'Smooth ground chickpeas with tahini and olive oil',
                     price: '20 ريال',
                     image: 'https://images.unsplash.com/photo-1571197119498-b1c4d3c71756?w=400&h=400&fit=crop'
-                },
-                {
-                    id: 'shakshuka',
-                    name: 'شكشوكة',
-                    nameEn: 'Shakshuka',
-                    description: 'بيض مطبوخ في صلصة الطماطم بالتوابل العربية',
-                    descriptionEn: 'Eggs cooked in spiced tomato sauce with Arabic spices',
-                    price: '35 ريال',
-                    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop'
                 }
             ],
-            mainMeals: [
+            lunch: [
                 {
                     id: 'kabsa',
                     name: 'كبسة الملكية',
@@ -597,7 +653,9 @@
                     descriptionEn: 'Smoked lamb with rice perfumed with cardamom and cinnamon',
                     price: '78 ريال',
                     image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=400&fit=crop'
-                },
+                }
+            ],
+            dinner: [
                 {
                     id: 'machboos',
                     name: 'مجبوس السمك',
@@ -606,6 +664,35 @@
                     descriptionEn: 'Fresh grouper fish with turmeric-spiced rice and Gulf spices',
                     price: '92 ريال',
                     image: 'https://images.unsplash.com/photo-1563379091339-03246963d96c?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'ouzi',
+                    name: 'الأوزي العراقي',
+                    nameEn: 'Iraqi Ouzi',
+                    description: 'لحم الضأن المحشو بالأرز والمكسرات والزبيب',
+                    descriptionEn: 'Stuffed lamb with rice, nuts and raisins',
+                    price: '95 ريال',
+                    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=400&h=400&fit=crop'
+                }
+            ],
+            snacks: [
+                {
+                    id: 'shawarma',
+                    name: 'شاورما اللحم',
+                    nameEn: 'Meat Shawarma',
+                    description: 'لحم مشوي مع الخضار والصلصات في خبز عربي طازج',
+                    descriptionEn: 'Grilled meat with vegetables and sauces in fresh Arabic bread',
+                    price: '45 ريال',
+                    image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400&h=400&fit=crop'
+                },
+                {
+                    id: 'fatayer',
+                    name: 'فطائر السبانخ',
+                    nameEn: 'Spinach Fatayer',
+                    description: 'فطائر محشية بالسبانخ والبصل والتوابل',
+                    descriptionEn: 'Pastries filled with spinach, onions and spices',
+                    price: '15 ريال',
+                    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=400&fit=crop'
                 }
             ]
         };
@@ -659,24 +746,33 @@
             if (currentCategory === category) return;
             
             const breakfastBtn = document.getElementById('breakfastBtn');
-            const mainMealsBtn = document.getElementById('mainMealsBtn');
-            const jerryChef = document.getElementById('jerryChef');
+            const lunchBtn = document.getElementById('lunchBtn');
+            const dinnerBtn = document.getElementById('dinnerBtn');
+            const snacksBtn = document.getElementById('snacksBtn');
+            const masterChef = document.getElementById('masterChef');
             
             // Update button states
             breakfastBtn.classList.toggle('active', category === 'breakfast');
-            mainMealsBtn.classList.toggle('active', category === 'mainMeals');
+            lunchBtn.classList.toggle('active', category === 'lunch');
+            dinnerBtn.classList.toggle('active', category === 'dinner');
+            snacksBtn.classList.toggle('active', category === 'snacks');
             
-            // Animate Jerry
-            jerryChef.classList.add('jumping');
+            // Animate Master Chef
+            masterChef.classList.add('jumping');
             
             setTimeout(() => {
-                jerryChef.classList.remove('jumping');
-                jerryChef.className = `jerry-chef ${category === 'breakfast' ? 'pointing-left' : 'pointing-right'}`;
+                masterChef.classList.remove('jumping');
+                let chefClass = 'pointing-breakfast';
+                if (category === 'lunch') chefClass = 'pointing-lunch';
+                else if (category === 'dinner') chefClass = 'pointing-dinner';
+                else if (category === 'snacks') chefClass = 'pointing-dinner';
+                
+                masterChef.className = `master-chef ${chefClass}`;
                 
                 // Generate new dishes
                 generateDishCards(category);
                 currentCategory = category;
-            }, 300);
+            }, 400);
         }
 
         function generateDishCards(category) {
