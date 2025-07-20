@@ -10,7 +10,7 @@
     <!-- Arabic Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Scheherazade+New:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -47,7 +47,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 1s ease-out;
+            transition: opacity 1.5s ease-out;
         }
         
         .loading-screen.hidden {
@@ -57,14 +57,23 @@
         
         .loading-text {
             font-family: 'Scheherazade New', serif;
-            font-size: 4rem;
+            font-size: 5rem;
             color: #d4af37;
             animation: pulse 2s infinite;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
+            0%, 100% { 
+                opacity: 0.7; 
+                transform: scale(1);
+                text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.05);
+                text-shadow: 0 0 50px rgba(212, 175, 55, 1);
+            }
         }
         
         /* Hero Section */
@@ -77,31 +86,99 @@
             text-align: center;
             position: relative;
             padding: 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            animation: backgroundShimmer 8s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundShimmer {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
         
         .main-title {
             font-family: 'Scheherazade New', serif;
-            font-size: 6rem;
+            font-size: 8rem;
+            font-weight: 700;
             color: #d4af37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            margin-bottom: 2rem;
-            transform: scale(0);
+            text-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.8),
+                0 0 80px rgba(212, 175, 55, 0.4),
+                0 10px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            transform: scale(0) rotate(-10deg);
             opacity: 0;
-            transition: all 1s ease-out;
+            transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 2;
         }
         
         .main-title.animate {
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
             opacity: 1;
+        }
+        
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            animation: underlineGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes underlineGlow {
+            0%, 100% { 
+                box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+                width: 150px;
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(212, 175, 55, 1);
+                width: 200px;
+            }
+        }
+        
+        .restaurant-subtitle {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: #b8860b;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out 0.5s;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .restaurant-subtitle.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .social-icons {
             display: flex;
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 2.5rem;
+            margin: 2rem 0 4rem 0;
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.8s ease-out 0.5s;
+            transition: all 1s ease-out 1s;
+            position: relative;
+            z-index: 2;
         }
         
         .social-icons.animate {
@@ -110,36 +187,90 @@
         }
         
         .social-icon {
-            color: #d4af37;
-            text-decoration: none;
-            padding: 1rem;
-            border: 2px solid #d4af37;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            width: 60px;
-            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 70px;
+            height: 70px;
+            border: 3px solid #d4af37;
+            border-radius: 50%;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, #d4af37, #b8860b);
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        
+        .social-icon:hover::before {
+            width: 100%;
+            height: 100%;
         }
         
         .social-icon:hover {
-            background: #d4af37;
-            color: #1a1a2e;
+            transform: translateY(-10px) scale(1.1);
+            border-color: #fff;
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
+        }
+        
+        .social-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: #d4af37;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover svg {
+            fill: #1a1a2e;
             transform: scale(1.1);
         }
         
-        .slogan {
-            font-size: 1.5rem;
-            margin: 1rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out 1s;
+        .slogans-container {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
         }
         
-        .slogan.animate {
+        .slogan {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: #d4af37;
+            text-align: center;
+            position: absolute;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            transition: all 0.8s ease;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            line-height: 1.4;
+        }
+        
+        .slogan.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+        }
+        
+        .slogan.exit {
+            opacity: 0;
+            transform: translateY(-30px) scale(0.9);
         }
         
         /* Menu Section */
@@ -151,9 +282,11 @@
         
         .menu-title {
             text-align: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 3rem;
             color: #d4af37;
+            font-family: 'Scheherazade New', serif;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .dish-grid {
@@ -164,13 +297,13 @@
         }
         
         .dish-card {
-            background: rgba(26, 26, 46, 0.8);
+            background: rgba(26, 26, 46, 0.9);
             border: 2px solid #d4af37;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 2rem;
             text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
             position: relative;
             overflow: hidden;
         }
@@ -192,8 +325,9 @@
         }
         
         .dish-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+            border-color: #fff;
         }
         
         .dish-image {
@@ -202,41 +336,94 @@
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto 1.5rem;
-            border: 3px solid #d4af37;
+            border: 4px solid #d4af37;
             display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .dish-card:hover .dish-image {
+            transform: scale(1.05);
+            border-color: #fff;
         }
         
         .dish-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #d4af37;
             margin-bottom: 0.5rem;
+            font-family: 'Scheherazade New', serif;
         }
         
         .dish-name-en {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #ccc;
             margin-bottom: 1rem;
             font-style: italic;
         }
         
         .dish-description {
-            font-size: 1rem;
+            font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 1rem;
             color: #e6e6e6;
         }
         
         .dish-price {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
             color: #d4af37;
             margin-top: 1rem;
+            font-family: 'Scheherazade New', serif;
+        }
+        
+        /* Instructions Section */
+        .instructions-section {
+            background: rgba(26, 26, 46, 0.9);
+            margin: 4rem 2rem;
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid #d4af37;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .instructions-title {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-family: 'Scheherazade New', serif;
+        }
+        
+        .instruction-step {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+        }
+        
+        .instruction-step h3 {
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+        
+        .instruction-step code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            color: #90EE90;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .main-title {
-                font-size: 4rem;
+                font-size: 5rem;
+            }
+            
+            .slogan {
+                font-size: 1.6rem;
             }
             
             .dish-grid {
@@ -244,12 +431,17 @@
             }
             
             .social-icons {
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
             .social-icon {
-                width: 50px;
-                height: 50px;
+                width: 60px;
+                height: 60px;
+            }
+            
+            .social-icon svg {
+                width: 30px;
+                height: 30px;
             }
         }
         
@@ -276,23 +468,78 @@
     <div id="app">
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
-            <h1 class="main-title" id="mainTitle">خمر</h1>
+            <h1 class="main-title" id="mainTitle">مطعم خمر</h1>
+            <p class="restaurant-subtitle" id="subtitle">أصالة المذاق السعودي</p>
             
             <div class="social-icons" id="socialIcons">
-                <a href="#" class="social-icon">📱</a>
-                <a href="#" class="social-icon">📷</a>
-                <a href="#" class="social-icon">🎵</a>
+                <a href="#" class="social-icon" title="TikTok">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon" title="Instagram">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="#" class="social-icon" title="Snapchat">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.404-5.958 1.404-5.958s-.358-.72-.358-1.783c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.750-1.378 0 0-.598 2.31-.744 2.886-.272 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.001 12.017.001z"/>
+                    </svg>
+                </a>
             </div>
             
-            <div class="slogan" id="slogan1">ذوقِ ریگِ بیابان را بچش</div>
-            <div class="slogan" id="slogan2">هر طعم، قصه‌ای از کاروانِ شب</div>
+            <div class="slogans-container" id="slogansContainer">
+                <div class="slogan active" id="slogan1">طعم الأصالة في كل لقمة</div>
+                <div class="slogan" id="slogan2">من قلب الجزيرة العربية إلى مائدتكم</div>
+                <div class="slogan" id="slogan3">تراث يتجدد مع كل وجبة</div>
+                <div class="slogan" id="slogan4">نكهات الأجداد بلمسة عصرية</div>
+                <div class="slogan" id="slogan5">رحلة طعام عبر تاريخ المملكة</div>
+            </div>
         </section>
 
         <!-- Menu Section -->
         <div class="menu-container">
-            <h2 class="menu-title fade-in">قائمة الطعام - Menu</h2>
+            <h2 class="menu-title fade-in">قائمة الطعام التراثية</h2>
             <div class="dish-grid" id="dishGrid">
                 <!-- Dishes will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="instructions-section fade-in">
+            <h2 class="instructions-title">🍽️ كيفية إضافة أطباقك الخاصة</h2>
+            
+            <div class="instruction-step">
+                <h3>١. افتح ملف index.html</h3>
+                <p>ابحث عن متغير <code>dishes</code> في الجافاسكريبت</p>
+            </div>
+            
+            <div class="instruction-step">
+                <h3>٢. أضف طبق جديد</h3>
+                <p>انسخ هذا الكود واستبدل المعلومات:</p>
+                <code>
+{<br>
+&nbsp;&nbsp;id: 'اسم-الطبق',<br>
+&nbsp;&nbsp;name: 'اسم الطبق بالعربية',<br>
+&nbsp;&nbsp;nameEn: 'Dish Name in English',<br>
+&nbsp;&nbsp;description: 'وصف الطبق بالعربية',<br>
+&nbsp;&nbsp;descriptionEn: 'Description in English',<br>
+&nbsp;&nbsp;price: '75 ريال',<br>
+&nbsp;&nbsp;image: 'رابط الصورة من Unsplash'<br>
+}
+                </code>
+            </div>
+            
+            <div class="instruction-step">
+                <h3>٣. صور الأطباق</h3>
+                <p>استخدم <code>https://unsplash.com</code> للحصول على صور عالية الجودة</p>
+                <p>استخدم هذا الرابط: <code>https://images.unsplash.com/photo-ID?w=400&h=400&fit=crop</code></p>
+            </div>
+            
+            <div class="instruction-step">
+                <h3>٤. حفظ التغييرات</h3>
+                <p>احفظ الملف واعمل <code>git push</code> للنشر تلقائياً</p>
             </div>
         </div>
     </div>
@@ -356,6 +603,9 @@
             }
         ];
 
+        let currentSloganIndex = 0;
+        const slogans = document.querySelectorAll('.slogan');
+
         // Initialize app
         function initApp() {
             // Hide loading screen after 2 seconds
@@ -374,27 +624,47 @@
             
             // Setup scroll animations
             setupScrollAnimations();
+            
+            // Start slogan rotation
+            setTimeout(() => {
+                startSloganRotation();
+            }, 3000);
         }
 
         function startHeroAnimations() {
             const mainTitle = document.getElementById('mainTitle');
+            const subtitle = document.getElementById('subtitle');
             const socialIcons = document.getElementById('socialIcons');
-            const slogan1 = document.getElementById('slogan1');
-            const slogan2 = document.getElementById('slogan2');
 
+            // Animate title with bounce effect
             mainTitle.classList.add('animate');
             
             setTimeout(() => {
+                subtitle.classList.add('animate');
+            }, 800);
+            
+            setTimeout(() => {
                 socialIcons.classList.add('animate');
-            }, 500);
-            
-            setTimeout(() => {
-                slogan1.classList.add('animate');
-            }, 1000);
-            
-            setTimeout(() => {
-                slogan2.classList.add('animate');
-            }, 1200);
+            }, 1500);
+        }
+
+        function startSloganRotation() {
+            setInterval(() => {
+                const currentSlogan = slogans[currentSloganIndex];
+                const nextIndex = (currentSloganIndex + 1) % slogans.length;
+                const nextSlogan = slogans[nextIndex];
+                
+                // Exit current slogan
+                currentSlogan.classList.remove('active');
+                currentSlogan.classList.add('exit');
+                
+                setTimeout(() => {
+                    currentSlogan.classList.remove('exit');
+                    nextSlogan.classList.add('active');
+                    currentSloganIndex = nextIndex;
+                }, 400);
+                
+            }, 4000); // Change every 4 seconds
         }
 
         function generateDishCards() {
