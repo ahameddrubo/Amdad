@@ -1,222 +1,137 @@
-# خمر (Khamer) - The Living Saudi Menu
+# خمر - Khamer Menu
 
-*The First-Ever Living, Breathing, Full-Skin Saudi Menu Experience*
+The First-Ever Living, Breathing, Full-Skin Saudi Menu
 
-## 🌟 Overview
+## 🚀 Live Demo
 
-Khamer is an immersive, cinematic web experience showcasing traditional Saudi cuisine through cutting-edge web technologies. Every pixel breathes, every letter dances, and the entire viewport becomes a never-ending, edge-to-edge Arabian culinary dream.
+Visit the live site: [https://neddrubo.github.io/](https://neddrubo.github.io/)
 
-## ✨ Features
+## 📋 Features
 
-### 🎨 Visual Experience
-- **100% Viewport Coverage**: True edge-to-edge, zero-margin experience
-- **Liquid Gold Calligraphy**: Arabic "خمر" in Al-Thuluth style with dripping animations
-- **Living Frescos**: Full-skin dish cards with 3D parallax ingredients
-- **Mashrabiya Patterns**: Animated Islamic geometric overlays
-- **Mirage Transitions**: 2-second shimmer effects between sections
+- **Beautiful Arabic Typography** - Using traditional Arabic fonts
+- **Responsive Design** - Works perfectly on all devices
+- **Smooth Animations** - Elegant loading and scroll animations
+- **Traditional Saudi Dishes** - Authentic menu with 6 popular dishes
+- **Modern UI/UX** - Contemporary design with Arabic cultural elements
 
-### 🔮 Animations & Effects
-- **Heartbeat Synchronization**: Title pulses with oud rhythm
-- **Social Icon Micro-interactions**:
-  - TikTok → Whirling Tanoura animation
-  - Snapchat → Falcon eye blink
-  - Instagram → Bedouin silver piece catching starlight
-- **Flame Letters**: Hover effects on Arabic text
-- **Floating Particles**: Saffron threads, rice grains, spices in 3D space
-- **Sand Spiral Dissolves**: Page transition effects
+## 🍽️ Menu Items
 
-### 🎵 Audio Experience
-- **Ambient Soundscape**: Distant oud + palm frond rustle
-- **Volume Scaling**: Audio adapts to scroll speed
-- **Web Audio API**: Procedural ambient sound generation
+1. **كبسة الملكية (Royal Kabsa)** - 85 ريال
+2. **مندي الحضرمي (Hadrami Mandi)** - 78 ريال
+3. **مجبوس السمك (Fish Machboos)** - 92 ريال
+4. **المنسف الأردني (Jordanian Mansaf)** - 88 ريال
+5. **الأوزي العراقي (Iraqi Ouzi)** - 95 ريال
+6. **شاورما اللحم (Meat Shawarma)** - 45 ريال
 
-### 📱 Responsive Design
-- **Desktop**: Vertical scroll-snap navigation
-- **Mobile/Tablet**: Horizontal swipe with "sand page" flipping
-- **Touch Gestures**: Intuitive interaction patterns
+## 🛠️ Technologies Used
 
-### 🚀 Performance
-- **WebGL Acceleration**: Three.js powered 3D effects
-- **GSAP Animations**: Smooth, hardware-accelerated transitions
-- **Service Worker**: Offline capability and asset caching
-- **Lazy Loading**: Optimized resource loading
+- **HTML5** - Semantic markup
+- **CSS3** - Advanced styling with animations
+- **Vanilla JavaScript** - No heavy frameworks
+- **Google Fonts** - Arabic typography
+- **Unsplash** - High-quality food images
+- **GitHub Pages** - Hosting and deployment
 
-## 🛠️ Technologies
+## 🚀 Quick Start
 
-- **Frontend Framework**: Vanilla JavaScript (ES6+)
-- **Animation Libraries**: 
-  - GSAP with ScrollTrigger
-  - Lottie for micro-animations
-- **3D Graphics**: Three.js
-- **Build Tool**: Vite
-- **Styling**: Modern CSS with custom properties
-- **Progressive Web App**: Service Worker implementation
+### Local Development
 
-## 📋 Installation
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
-
-### Setup
-
-1. **Clone the repository**
 ```bash
-git clone https://github.com/your-username/khamer-menu.git
+# Clone the repository
+git clone https://github.com/neddrubo/khamer-menu.git
+
+# Navigate to project directory
 cd khamer-menu
-```
 
-2. **Install dependencies**
-```bash
+# Install dependencies
 npm install
-```
 
-3. **Start development server**
-```bash
+# Start development server
 npm run dev
-```
 
-4. **Build for production**
-```bash
+# Build for production
 npm run build
-```
 
-5. **Preview production build**
-```bash
+# Preview production build
 npm run preview
 ```
 
-## 🎯 Usage
+### GitHub Pages Deployment
 
-### Development Commands
+The site automatically deploys to GitHub Pages when you push to the main branch. The GitHub Actions workflow handles:
 
-```bash
-# Start development server with hot reload
-npm run dev
+1. **Automatic Build** - Builds the project on every push
+2. **Deployment** - Deploys to GitHub Pages
+3. **Optimized Assets** - Minified and optimized files
 
-# Build optimized production bundle
-npm run build
+### Manual Deployment Steps
 
-# Preview production build locally
-npm run preview
+1. **Enable GitHub Pages:**
+   - Go to your repository settings
+   - Navigate to "Pages" section
+   - Select "Deploy from a branch"
+   - Choose "gh-pages" branch
+   - Set folder to "/ (root)"
 
-# Serve production build
-npm run serve
-```
+2. **Push your changes:**
+   ```bash
+   git add .
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
 
-### Customization
+3. **Wait for deployment:**
+   - GitHub Actions will automatically build and deploy
+   - Check the "Actions" tab for deployment status
+   - Your site will be live at `https://yourusername.github.io/repository-name`
 
-#### Adding New Dishes
+## 📱 Browser Support
 
-Edit `src/main.js` and modify the `dishes` array:
+- ✅ Chrome (latest)
+- ✅ Firefox (latest)
+- ✅ Safari (latest)
+- ✅ Edge (latest)
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 🎨 Customization
+
+### Adding New Dishes
+
+Edit the `dishes` array in the JavaScript section of `index.html`:
 
 ```javascript
-{
-  id: 'new-dish',
-  name: 'اسم الطبق بالعربية',
-  nameEn: 'Dish Name in English',
-  description: 'وصف الطبق بالعربية',
-  descriptionEn: 'Dish description in English',
-  price: '99',
-  currency: 'ريال',
-  image: '/images/new-dish.jpg',
-  particles: ['saffron', 'rice', 'spice']
-}
+const dishes = [
+    {
+        id: 'your-dish',
+        name: 'اسم الطبق',
+        nameEn: 'Dish Name',
+        description: 'وصف الطبق باللغة العربية',
+        descriptionEn: 'Dish description in English',
+        price: '75 ريال',
+        image: 'https://your-image-url.com/image.jpg'
+    }
+    // Add more dishes...
+];
 ```
 
-#### Customizing Colors
+### Changing Colors
 
-Modify CSS custom properties in `src/styles/main.css`:
+Update the CSS custom properties in the `<style>` section:
 
 ```css
 :root {
-  --desert-night: #1a1a2e;
-  --liquid-gold: #d4af37;
-  --antique-gold: #b8860b;
-  --terracotta: #cd853f;
-  --pomegranate: #c0392b;
+    --primary-color: #d4af37;  /* Gold */
+    --background-color: #1a1a2e;  /* Dark blue */
+    --text-color: #e6e6e6;  /* Light gray */
 }
 ```
-
-#### Adding Audio Files
-
-Replace placeholder audio in `public/audio/` directory:
-- `ambient-oud.mp3` - Background ambient sound
-- Additional audio files can be referenced in the audio system
-
-## 🏗️ Project Structure
-
-```
-khamer-menu/
-├── public/
-│   ├── images/           # Dish images and visual assets
-│   ├── audio/           # Audio files
-│   ├── favicon.svg      # Site favicon
-│   └── sw.js           # Service worker
-├── src/
-│   ├── styles/
-│   │   └── main.css    # Main stylesheet
-│   └── main.js         # Application entry point
-├── index.html          # Main HTML template
-├── package.json        # Dependencies and scripts
-├── vite.config.js      # Vite configuration
-└── README.md           # This file
-```
-
-## 🎨 Design Philosophy
-
-### Arabian Aesthetic
-- **Color Palette**: Sun-bleached terracotta, midnight indigo, pomegranate red, antique gold
-- **Typography**: Authentic Arabic fonts (Scheherazade New, Amiri)
-- **Patterns**: Traditional Islamic geometric designs
-- **Motion**: Fluid, organic animations inspired by desert winds
-
-### User Experience
-- **Immersive Navigation**: No traditional menus, pure scroll/swipe interaction
-- **Cultural Authenticity**: Right-to-left text flow, Arabic-first design
-- **Accessibility**: Screen reader friendly, keyboard navigation support
-- **Performance**: 60fps animations, optimized loading
-
-## 🌐 Browser Support
-
-- **Modern Browsers**: Chrome 80+, Firefox 75+, Safari 13+, Edge 80+
-- **WebGL Support**: Required for 3D effects
-- **Service Worker**: For offline functionality
-- **Web Audio API**: For ambient sound features
-
-## 📱 PWA Features
-
-- **Offline Capability**: Core functionality works without internet
-- **App-like Experience**: Can be installed on mobile devices
-- **Push Notifications**: For special offers and updates
-- **Background Sync**: Seamless online/offline transitions
-
-## 🔧 Development Notes
-
-### Performance Optimizations
-- Hardware acceleration for animations
-- Texture optimization for WebGL
-- Debounced scroll events
-- Efficient particle systems
-
-### Accessibility Considerations
-- ARIA labels for interactive elements
-- Keyboard navigation support
-- Screen reader compatibility
-- Reduced motion preferences
-
-### Cross-Platform Testing
-- Desktop browsers (Windows, macOS, Linux)
-- Mobile browsers (iOS Safari, Android Chrome)
-- Tablet interfaces
-- Various screen sizes and orientations
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ## 📄 License
@@ -225,19 +140,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Traditional Saudi cuisine inspiration
-- Arabic calligraphy artists
-- Islamic geometric pattern designers
-- Modern web animation pioneers
-
-## 📞 Support
-
-For questions or support, please open an issue on GitHub or contact:
-- Email: support@khamer-menu.com
-- Website: https://khamer-menu.com
+- **Arabic Typography** - Thanks to Google Fonts for beautiful Arabic fonts
+- **Images** - Courtesy of Unsplash photographers
+- **Inspiration** - Traditional Saudi Arabian cuisine and culture
 
 ---
 
-**خمر - حيث يلتقي التراث بالإبداع الرقمي**
-
-*Khamer - Where Heritage Meets Digital Innovation*
+**Made with ❤️ for Saudi Arabian cuisine lovers**
