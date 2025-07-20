@@ -1,0 +1,727 @@
+/* ==================================================
+   KHAMER - THE LIVING SAUDI MENU
+   Full-Skin, Edge-to-Edge Experience
+   ================================================== */
+
+/* CSS Custom Properties */
+:root {
+  /* Colors - Arabian Palette */
+  --desert-night: #1a1a2e;
+  --midnight-indigo: #16213e;
+  --deep-blue: #0f3460;
+  --liquid-gold: #d4af37;
+  --antique-gold: #b8860b;
+  --terracotta: #cd853f;
+  --pomegranate: #c0392b;
+  --silver: #c0c0c0;
+  
+  /* Typography */
+  --font-arabic: 'Scheherazade New', serif;
+  --font-farsi: 'Amiri', serif;
+  
+  /* Animations */
+  --transition-smooth: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-bounce: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Layout */
+  --card-padding: 2rem;
+  --border-radius: 12px;
+}
+
+/* ==================================================
+   RESET & BASE STYLES
+   ================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-arabic);
+  background: var(--desert-night);
+  color: var(--liquid-gold);
+  overflow-x: hidden;
+  line-height: 1.6;
+  direction: rtl;
+}
+
+/* ==================================================
+   HERO SECTION
+   ================================================== */
+
+.hero-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, 
+    var(--desert-night) 0%, 
+    var(--midnight-indigo) 50%, 
+    var(--deep-blue) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 90vw;
+}
+
+.calligraphy-container {
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.main-title {
+  font-family: var(--font-arabic);
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 700;
+  color: var(--liquid-gold);
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+  letter-spacing: 0.1em;
+  animation: heartbeat 3s ease-in-out infinite;
+  position: relative;
+  filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.3));
+}
+
+@keyframes heartbeat {
+  0%, 100% { 
+    transform: scale(1); 
+    filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.3));
+  }
+  50% { 
+    transform: scale(1.05); 
+    filter: drop-shadow(0 8px 40px rgba(212, 175, 55, 0.6));
+  }
+}
+
+.title-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Liquid drip effect */
+.main-title::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to bottom, var(--liquid-gold), transparent);
+  animation: drip 4s ease-in-out infinite;
+  border-radius: 0 0 2px 2px;
+}
+
+@keyframes drip {
+  0%, 80%, 100% { 
+    height: 0; 
+    opacity: 0; 
+  }
+  10%, 70% { 
+    height: 30px; 
+    opacity: 1; 
+  }
+}
+
+/* ==================================================
+   SOCIAL ICONS
+   ================================================== */
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  direction: ltr;
+}
+
+.social-icon {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--liquid-gold);
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.social-icon svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  fill: var(--liquid-gold);
+  transition: var(--transition-smooth);
+}
+
+/* TikTok - Whirling Tanoura */
+.social-icon.tiktok:hover {
+  animation: whirl 2s linear infinite;
+  background: rgba(212, 175, 55, 0.2);
+  transform: scale(1.1);
+}
+
+@keyframes whirl {
+  from { transform: rotate(0deg) scale(1.1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
+
+/* Snapchat - Falcon Eye Blink */
+.social-icon.snapchat:hover svg {
+  animation: falcon-blink 1.5s ease-in-out infinite;
+}
+
+@keyframes falcon-blink {
+  0%, 90%, 100% { transform: translate(-50%, -50%) scaleY(1); }
+  5%, 15% { transform: translate(-50%, -50%) scaleY(0.1); }
+}
+
+/* Instagram - Bedouin Silver Piece */
+.social-icon.instagram:hover {
+  animation: silver-catch 2s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(192, 192, 192, 0.5);
+}
+
+@keyframes silver-catch {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(5deg); }
+  75% { transform: translateY(5px) rotate(-5deg); }
+}
+
+/* ==================================================
+   AUTO-TYPED SLOGANS
+   ================================================== */
+
+.auto-typed-slogans {
+  font-family: var(--font-farsi);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  height: 3em;
+  position: relative;
+  overflow: hidden;
+}
+
+.slogan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--transition-smooth);
+  background: linear-gradient(45deg, var(--liquid-gold), var(--antique-gold));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+}
+
+.slogan.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slogan.typing::after {
+  content: '|';
+  animation: cursor-blink 1s infinite;
+  color: var(--liquid-gold);
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ==================================================
+   MENU CONTAINER
+   ================================================== */
+
+.menu-container {
+  position: relative;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/* ==================================================
+   DISH CARDS - FULL-SKIN LIVING FRESCOS
+   ================================================== */
+
+.dish-card {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  scroll-snap-align: start;
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.dish-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.8s ease-out;
+}
+
+.dish-card:hover .dish-background {
+  transform: scale(1.1);
+}
+
+/* Mashrabiya Lattice Overlay */
+.mashrabiya-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 75% 25%, rgba(212, 175, 55, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 25% 75%, rgba(212, 175, 55, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.1) 2px, transparent 2px);
+  background-size: 40px 40px;
+  animation: lattice-breathe 8s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+@keyframes lattice-breathe {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.02); }
+}
+
+/* Ingredient 3D Parallax */
+.ingredient-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: float-orbit 15s infinite linear;
+  opacity: 0.8;
+}
+
+.particle.saffron {
+  width: 3px;
+  height: 12px;
+  background: linear-gradient(45deg, #ff6b35, #f7931e);
+  border-radius: 2px;
+}
+
+.particle.rice {
+  width: 2px;
+  height: 6px;
+  background: #f8f8f8;
+  border-radius: 1px;
+}
+
+.particle.spice {
+  width: 4px;
+  height: 4px;
+  background: var(--terracotta);
+}
+
+@keyframes float-orbit {
+  from {
+    transform: translate(0, 100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translate(100vw, -20vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ==================================================
+   DISH CARD CONTENT
+   ================================================== */
+
+.dish-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  max-width: 80%;
+  backdrop-filter: blur(10px);
+  background: rgba(26, 26, 46, 0.7);
+  padding: 3rem;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.dish-name {
+  font-family: var(--font-arabic);
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 700;
+  color: var(--liquid-gold);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Molten Gold Kashida Animation */
+.dish-name::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--liquid-gold), transparent);
+  animation: kashida-flow 3s ease-in-out infinite;
+}
+
+@keyframes kashida-flow {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.dish-description {
+  font-family: var(--font-farsi);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  line-height: 1.8;
+  color: rgba(212, 175, 55, 0.9);
+  margin-bottom: 2rem;
+  animation: word-reveal 0.1s ease-out forwards;
+}
+
+.dish-price {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--antique-gold);
+  position: relative;
+}
+
+.price-coins {
+  display: inline-block;
+  margin-left: 1rem;
+  animation: coins-clink 2s ease-in-out infinite;
+}
+
+@keyframes coins-clink {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(5deg); }
+  75% { transform: translateY(5px) rotate(-3deg); }
+}
+
+/* ==================================================
+   MIRAGE TRANSITION
+   ================================================== */
+
+.mirage-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, 
+    rgba(212, 175, 55, 0.1) 0%, 
+    transparent 70%);
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+
+.mirage-transition.active {
+  opacity: 1;
+}
+
+.mirage-transition canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* Spice Constellation Effect */
+.spice-constellation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(205, 133, 63, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(184, 134, 11, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 60% 80%, rgba(192, 57, 43, 0.3) 1px, transparent 1px);
+  animation: constellation-twinkle 4s ease-in-out infinite;
+}
+
+@keyframes constellation-twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* ==================================================
+   404 NOT FOUND PAGE
+   ================================================== */
+
+.not-found-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(45deg, 
+    var(--desert-night) 0%, 
+    var(--midnight-indigo) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-smooth);
+}
+
+.not-found-page.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.oasis-mirage {
+  text-align: center;
+  animation: mirage-fade 6s ease-in-out infinite;
+}
+
+.oasis-mirage h2 {
+  font-family: var(--font-arabic);
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--liquid-gold);
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.oasis-mirage p {
+  font-family: var(--font-farsi);
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: rgba(212, 175, 55, 0.6);
+  margin-bottom: 3rem;
+}
+
+@keyframes mirage-fade {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+.sand-glyph {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border: 2px solid var(--liquid-gold);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  animation: sand-swirl 8s linear infinite;
+}
+
+@keyframes sand-swirl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.sand-glyph::before {
+  content: '⟲';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: var(--liquid-gold);
+}
+
+/* ==================================================
+   RESPONSIVE DESIGN
+   ================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .hero-content {
+    max-width: 95vw;
+  }
+  
+  .social-icons {
+    gap: 2rem;
+  }
+  
+  .dish-content {
+    max-width: 90%;
+    padding: 2rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .social-icons {
+    gap: 1.5rem;
+  }
+  
+  .social-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .social-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .dish-content {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+  
+  .menu-container {
+    scroll-snap-type: x mandatory;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  
+  .dish-card {
+    scroll-snap-align: center;
+    flex: none;
+  }
+}
+
+/* ==================================================
+   UTILITY CLASSES
+   ================================================== */
+
+.hidden {
+  display: none !important;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+/* ==================================================
+   FLAME LETTERS EFFECT (HOVER)
+   ================================================== */
+
+.flame-letter {
+  animation: flame-flicker 0.5s ease-in-out;
+}
+
+@keyframes flame-flicker {
+  0%, 100% { 
+    color: var(--liquid-gold);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+  25% { 
+    color: #ff6b35;
+    text-shadow: 0 0 20px rgba(255, 107, 53, 0.8);
+  }
+  50% { 
+    color: #f7931e;
+    text-shadow: 0 0 30px rgba(247, 147, 30, 1);
+  }
+  75% { 
+    color: #ff4757;
+    text-shadow: 0 0 25px rgba(255, 71, 87, 0.9);
+  }
+}
+
+/* ==================================================
+   LOADING SCREEN ANIMATIONS
+   ================================================== */
+
+.loading-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.5s ease-out, visibility 1.5s ease-out;
+}
+
+/* ==================================================
+   SCROLL BEHAVIOR
+   ================================================== */
+
+.menu-container::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==================================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================================== */
+
+.dish-card,
+.hero-section,
+.mirage-transition {
+  will-change: transform, opacity;
+}
+
+.particle,
+.main-title,
+.social-icon {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
